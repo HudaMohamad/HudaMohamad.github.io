@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Huda Abu Alkherr — Full Stack Developer</title>
+<script>
+  // A refresh always starts from the top; normal visits, links with #section and back/forward are left alone.
+  try {
+    var nav = performance.getEntriesByType('navigation')[0];
+    if (nav && nav.type === 'reload') {
+      history.scrollRestoration = 'manual';
+      if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+      addEventListener('load', function () { scrollTo({ top: 0, left: 0, behavior: 'instant' }); });
+    }
+  } catch (e) {}
+</script>
+<meta name="description" content="Full Stack Developer and Odoo specialist building web applications and ERP systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A1813;
+    --bg-2: #0D1E18;
+    --card: #10251D;
+    --card-2: #142C23;
+    --line: color-mix(in srgb, var(--gold) 14%, transparent);
+    --line-2: color-mix(in srgb, var(--gold) 34%, transparent);
+    --text: #EFE9DC;
+    --text-2: #B7B8AA;
+    --muted: #7F8A80;
+    --green: #6CC4A0;
+    --green-2: #3E9E7A;
+    --mint: #A8DCC4;
+    --gold: #C9A96E;
+    --gold-2: #E3CC9A;
+    --on-accent: #0A1813;
+    --serif: "Playfair Display", Georgia, serif;
+    --head: "Inter", system-ui, sans-serif;
+    --body: "Inter", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  html[lang="ar"] { --serif: "Amiri", Georgia, serif; --head: "Cairo", system-ui, sans-serif; --body: "IBM Plex Sans Arabic", system-ui, sans-serif; }
+  html[lang="en"] .ar, html[lang="ar"] .en { display: none !important; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--body); font-weight: 300; line-height: 1.7; font-size: 16.5px; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  html[lang="ar"] body { font-size: 17px; line-height: 1.9; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+
+  /* Background: grid + glow */
+  .bg-fx { position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(700px 420px at 85% -5%, color-mix(in srgb, var(--green) 10%, transparent), transparent 70%),
+      radial-gradient(500px 400px at -10% 45%, color-mix(in srgb, var(--gold) 5%, transparent), transparent 70%),
+      linear-gradient(var(--bg), var(--bg)); }
+  .bg-fx::after { content: ""; position: absolute; inset: 0; display: none;
+    background-image: linear-gradient(color-mix(in srgb, var(--green) 5%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--green) 5%, transparent) 1px, transparent 1px);
+    background-size: 56px 56px; mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%); }
+
+  /* Nav */
+  nav { position: sticky; top: 14px; z-index: 10; margin-top: 14px; }
+  .nav-in { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 10px 12px 10px 20px; border: 1px solid var(--line); border-radius: 999px; background: color-mix(in srgb, var(--bg-2) 72%, transparent); backdrop-filter: blur(14px); }
+  html[dir="rtl"] .nav-in { padding: 10px 20px 10px 12px; }
+  .logo { font-family: var(--mono); font-weight: 500; font-size: 17px; color: var(--text); direction: ltr; }
+  .logo b { color: var(--green); font-weight: 500; }
+  .links { display: flex; gap: 6px; }
+  .links a { padding: 7px 14px; border-radius: 999px; font-size: 14.5px; color: var(--text-2); transition: .2s; }
+  .links a:hover { color: var(--text); background: color-mix(in srgb, var(--green) 8%, transparent); }
+  .lang { border: 1px solid var(--line-2); background: color-mix(in srgb, var(--green) 8%, transparent); color: var(--mint); padding: 8px 16px; border-radius: 999px; font: 500 14px var(--body); cursor: pointer; transition: .2s; }
+  .lang:hover { background: var(--green); color: var(--on-accent); }
+
+  /* Shared */
+  section { padding: 100px 0; }
+  .tag { display: inline-flex; align-items: center; gap: 12px; font-family: var(--body); font-size: 12.5px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+  .tag::before { content: ""; width: 34px; height: 1px; background: var(--gold); }
+  html[lang="ar"] .tag { font-size: 14.5px; letter-spacing: 0; }
+  h1, h2 { font-family: var(--serif); font-weight: 500; line-height: 1.12; }
+  h3, h4 { font-family: var(--head); font-weight: 600; line-height: 1.25; letter-spacing: -.01em; }
+  html[lang="ar"] h1, html[lang="ar"] h2 { font-weight: 700; line-height: 1.35; }
+  html[lang="ar"] h3, html[lang="ar"] h4 { letter-spacing: 0; line-height: 1.45; }
+  h2 { font-size: clamp(34px, 4.6vw, 50px); margin: 16px 0 16px; }
+  h2 em { font-style: italic; color: var(--gold-2); }
+  html[lang="ar"] h2 em { font-style: normal; }
+  .sub { color: var(--text-2); max-width: 620px; font-size: 17px; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 13px 24px; border-radius: 12px; font: 500 15px var(--body); transition: .25s; border: 1px solid transparent; }
+  .btn { border-radius: 4px; }
+  .btn-main { background: var(--gold); color: var(--on-accent); }
+  .btn-main:hover { background: var(--gold-2); transform: translateY(-2px); box-shadow: 0 10px 30px color-mix(in srgb, var(--gold) 20%, transparent); }
+  .btn-ghost { border-color: var(--line-2); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold-2); }
+  .card { background: linear-gradient(180deg, var(--card), var(--bg-2)); border: 1px solid var(--line); border-radius: 12px; }
+
+  /* Hero */
+  .hero { padding: 90px 0 70px; }
+  .hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 60px; align-items: center; }
+  .status { display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px 6px 10px; border: 1px solid var(--line-2); border-radius: 999px; font-size: 13.5px; color: var(--mint); background: color-mix(in srgb, var(--green) 6%, transparent); }
+  html[dir="rtl"] .status { padding: 6px 10px 6px 14px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 60%, transparent); animation: pulse 2s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--green) 0%, transparent); } 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 0%, transparent); } }
+  .hero h1 { font-size: clamp(46px, 6.6vw, 80px); margin: 22px 0 14px; }
+  .hero h1 span.hl { font-style: italic; background: linear-gradient(90deg, var(--gold), var(--gold-2)); -webkit-background-clip: text; background-clip: text; color: transparent; padding-inline-end: 4px; }
+  html[lang="ar"] .hero h1 span.hl { font-style: normal; }
+  .role { font-family: var(--mono); font-size: 16px; color: var(--text-2); margin-bottom: 22px; direction: ltr; }
+  html[dir="rtl"] .role { text-align: right; }
+  .role b { color: var(--green); font-weight: 500; }
+  .caret { display: inline-block; width: 9px; height: 18px; background: var(--green); vertical-align: -3px; margin-left: 4px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .hero .sub { margin-bottom: 34px; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .photo { position: relative; justify-self: center; width: min(360px, 100%); }
+  .photo::before { content: ""; position: absolute; inset: -18px 18px 18px -18px; border: 1px solid var(--gold); border-radius: 4px; }
+  html[dir="rtl"] .photo::before { inset: -18px -18px 18px 18px; }
+  .photo::after { content: ""; position: absolute; inset: 20% 10% -8% 10%; background: color-mix(in srgb, var(--green) 22%, transparent); filter: blur(70px); z-index: -1; }
+  .photo img { position: relative; width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: top; border-radius: 4px; }
+  .vis { position: relative; width: 100%; aspect-ratio: 4/5; border-radius: 4px; overflow: hidden; container-type: inline-size; }
+  .vis-mono { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle at 50% 40%, var(--card-2), var(--card) 70%); border: 1px solid var(--line-2); direction: ltr; }
+  .mono-letters { font-family: "Playfair Display", serif; font-style: italic; font-weight: 500; font-size: clamp(110px, 14vw, 170px); line-height: 1; letter-spacing: -.04em; background: linear-gradient(160deg, var(--gold-2), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; padding: 0 .08em; }
+  .mono-rule { width: 54px; height: 1px; background: var(--gold); margin: 22px 0 18px; }
+  .mono-name { font-family: "Playfair Display", serif; font-size: 20px; color: var(--text); }
+  .mono-role { margin-top: 6px; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--green); }
+  .chip-float { position: absolute; display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 14px; background: color-mix(in srgb, var(--card) 90%, transparent); border: 1px solid var(--line-2); backdrop-filter: blur(8px); font-size: 13.5px; font-weight: 500; white-space: nowrap; }
+  .chip-float i { font-style: normal; font-family: var(--mono); color: var(--gold); }
+  .cf-1 { top: 12%; left: -40px; }
+  .cf-2 { bottom: -18px; right: -30px; }
+  html[dir="rtl"] .cf-1 { left: auto; right: -40px; }
+  html[dir="rtl"] .cf-2 { right: auto; left: -30px; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 70px; }
+  .stat { padding: 22px 24px; }
+  .stat b { display: block; font-family: "Playfair Display", serif; font-size: 40px; font-weight: 500; color: var(--gold-2); line-height: 1.1; }
+  .stat b sup { color: var(--green); font-size: 22px; }
+  .stat span { font-size: 14px; color: var(--muted); }
+
+  /* About */
+  .about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 50px; align-items: start; }
+  .about-text p { color: var(--text-2); font-size: 17px; }
+  .about-text p + p { margin-top: 16px; }
+  .orgs { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 26px; }
+  .orgs span { padding: 7px 14px; border-radius: 10px; background: var(--card); border: 1px solid var(--line); font-size: 14px; color: var(--text-2); }
+  .terminal { overflow: hidden; direction: ltr; text-align: left; }
+  .term-bar { display: flex; gap: 7px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+  .term-bar i { width: 11px; height: 11px; border-radius: 50%; background: #1E3A2F; }
+  .term-bar i:first-child { background: var(--green); }
+  .terminal pre { padding: 22px 24px; font: 400 14px/1.9 var(--mono); color: var(--text-2); white-space: pre-wrap; }
+  .terminal .k { color: var(--green); } .terminal .s { color: var(--mint); } .terminal .c { color: var(--muted); }
+
+  /* Skills */
+  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 46px; }
+  .skill { padding: 28px 24px; transition: .3s; }
+  .skill:hover { border-color: var(--line-2); transform: translateY(-4px); }
+  .skill .ico { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: color-mix(in srgb, var(--green) 10%, transparent); color: var(--green); font-family: var(--mono); font-size: 15px; margin-bottom: 18px; }
+  .skill h3 { font-size: 21px; margin-bottom: 14px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 7px; }
+  .pills span { padding: 5px 11px; border-radius: 8px; font-size: 13.5px; background: color-mix(in srgb, var(--green) 6%, transparent); border: 1px solid var(--line); color: var(--text-2); }
+
+  /* Featured */
+  .featured { padding: 40px; margin-top: 46px; display: grid; grid-template-columns: minmax(0, 440px) 1fr; gap: 44px; position: relative; overflow: hidden; }
+  .featured::before { content: ""; position: absolute; width: 400px; height: 400px; top: -200px; right: -100px; background: color-mix(in srgb, var(--green) 12%, transparent); filter: blur(80px); }
+  html[dir="rtl"] .featured::before { right: auto; left: -100px; }
+  .badge { display: inline-block; padding: 5px 12px; border-radius: 3px; background: var(--gold); color: var(--on-accent); font: 500 12.5px var(--mono); }
+  .featured h3 { font-size: clamp(26px, 3vw, 34px); margin: 16px 0 12px; }
+  .featured p { color: var(--text-2); }
+  .role-list { list-style: none; margin: 22px 0; }
+  .role-list li { display: flex; gap: 12px; padding: 7px 0; color: var(--text-2); font-size: 15.5px; }
+  .role-list li::before { content: "→"; color: var(--green); font-family: var(--mono); flex: none; }
+  html[dir="rtl"] .role-list li::before { content: "←"; }
+  .mods { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 18px; }
+  .mods div { padding: 14px 16px; border-radius: 12px; background: color-mix(in srgb, var(--bg) 60%, transparent); border: 1px solid var(--line); font-size: 14px; color: var(--text-2); }
+  .mods b { display: block; color: var(--text); font-weight: 500; font-size: 14.5px; margin-bottom: 2px; }
+  .stackline { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 20px; }
+  .stackline span { font: 400 12.5px var(--mono); padding: 4px 10px; border-radius: 7px; border: 1px solid var(--line-2); color: var(--mint); }
+
+  /* Projects */
+  .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 46px; }
+  .project { padding: 30px 28px; display: flex; flex-direction: column; transition: .3s; }
+  .project:hover { border-color: var(--line-2); transform: translateY(-4px); }
+  .project .top, .featured .top { display: flex; align-items: center; justify-content: space-between; direction: ltr; min-height: 28px; margin-bottom: 18px; }
+  .project.wide > .top, .featured > .top { grid-column: 1 / -1; margin-bottom: 0; }
+  .project .num, .featured .num { margin-left: auto; direction: ltr; unicode-bidi: isolate; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  .project h3 { font-size: 22px; margin-bottom: 10px; }
+  .project p { color: var(--text-2); font-size: 15.5px; flex: 1; }
+  .project .live { margin-top: 22px; align-self: flex-start; display: inline-flex; gap: 8px; align-items: center; padding: 10px 18px; border-radius: 4px; background: var(--green); color: var(--on-accent); font-size: 14.5px; font-weight: 500; transition: .2s; }
+  .project .live:hover { background: var(--gold); transform: translateY(-2px); }
+  .project .live.code { background: none; color: var(--text); border: 1px solid var(--line-2); padding: 9px 17px; }
+  .project .live.code:hover { background: none; border-color: var(--green); color: var(--green); }
+  .proj-menu { position: relative; margin-top: 22px; align-self: flex-start; }
+  .project:has(.proj-menu[open]) { z-index: 5; position: relative; }
+  .proj-menu summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: 4px; background: var(--green); color: var(--on-accent); font-size: 14.5px; font-weight: 500; transition: .2s; user-select: none; }
+  .proj-menu summary::-webkit-details-marker { display: none; }
+  .proj-menu summary:hover { background: var(--gold); }
+  .proj-menu summary i { font-style: normal; font-size: 12px; transition: transform .2s; }
+  .proj-menu[open] summary i { transform: rotate(180deg); }
+  .proj-menu .menu { position: absolute; top: calc(100% + 8px); inset-inline-start: 0; min-width: 250px; padding: 6px; border-radius: 8px; background: var(--card); border: 1px solid var(--line-2); box-shadow: 0 14px 40px rgba(0, 0, 0, .35); display: grid; gap: 2px; z-index: 10; }
+  .proj-menu .menu a { display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 6px; color: var(--text); font-size: 14.5px; font-weight: 500; transition: .15s; }
+  .proj-menu .menu a:hover { background: color-mix(in srgb, var(--green) 8%, transparent); color: var(--green); }
+  .proj-menu .menu b { width: 34px; height: 34px; flex: none; display: grid; place-items: center; border-radius: 6px; background: color-mix(in srgb, var(--green) 10%, transparent); color: var(--green); font: 500 13px var(--mono); }
+  .proj-menu .menu small { display: block; font-size: 12.5px; font-weight: 400; color: var(--muted); }
+  .project .links-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .project .links-row .live { margin-top: 22px; }
+  .project.wide { grid-column: 1 / -1; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; border-color: var(--line-2); }
+  .project.wide { row-gap: 22px; }
+  .featured { row-gap: 26px; }
+  .feats { list-style: none; display: grid; gap: 8px; }
+  .feats li { padding: 11px 14px; border-radius: 10px; background: color-mix(in srgb, var(--bg) 60%, transparent); border: 1px solid var(--line); font-size: 14.5px; color: var(--text-2); }
+  .feats li::before { content: "✓"; color: var(--green); margin-inline-end: 10px; }
+
+  /* Experience */
+  .timeline { margin-top: 46px; display: grid; gap: 14px; }
+  .item { display: grid; grid-template-columns: 210px 1fr; gap: 24px; padding: 26px 28px; }
+  .item.current { border-color: var(--line-2); }
+  .item .date { font-family: var(--mono); font-size: 13.5px; color: var(--green); padding-top: 4px; }
+  html[lang="ar"] .item .date { font-family: var(--body); font-weight: 500; }
+  .item h3 { font-size: 21px; }
+  .item .org { color: var(--muted); font-size: 14.5px; margin: 2px 0 8px; }
+  .item p { color: var(--text-2); font-size: 15.5px; }
+
+  /* Education */
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 46px; }
+  .edu { padding: 28px; }
+  .edu .date { font-family: var(--mono); font-size: 13.5px; color: var(--green); }
+  .edu h3 { font-size: 21px; margin: 8px 0 6px; }
+  .edu p { color: var(--text-2); font-size: 15px; }
+
+  /* Contact */
+  .cta { padding: 64px 40px; text-align: center; position: relative; overflow: hidden; border-color: var(--line-2); }
+  .cta::before { content: ""; position: absolute; width: 500px; height: 300px; left: 50%; top: -150px; transform: translateX(-50%); background: color-mix(in srgb, var(--green) 18%, transparent); filter: blur(90px); }
+  .cta > * { position: relative; }
+  .cta .sub { margin: 0 auto 34px; }
+  .cta .tag::before { display: none; }
+  .email { display: inline-block; font-family: "Playfair Display", serif; font-style: italic; font-size: clamp(22px, 3.6vw, 38px); font-weight: 500; color: var(--text); border-bottom: 1px solid var(--gold); padding-bottom: 4px; word-break: break-all; transition: .2s; }
+  .email:hover { color: var(--green); }
+  .socials { display: flex; justify-content: center; gap: 10px; margin-top: 34px; flex-wrap: wrap; }
+  .socials a { padding: 10px 20px; border-radius: 12px; border: 1px solid var(--line-2); font-size: 14.5px; color: var(--text-2); transition: .2s; }
+  .socials a:hover { border-color: var(--green); color: var(--green); }
+  .loc { margin-top: 26px; color: var(--muted); font-size: 14px; }
+  footer { text-align: center; padding: 30px 0 40px; color: var(--muted); font-size: 13.5px; font-family: var(--mono); }
+
+  /* Image thumbnails that open in a popup */
+  .zoomfig { margin: 0 0 20px; max-width: 480px; }
+  .zoomfig figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); }
+  .zoom { position: relative; display: block; width: 100%; padding: 0; margin: 0; border: 1px solid var(--line-2); border-radius: 10px; overflow: hidden; background: #fff; cursor: zoom-in; font: inherit; line-height: 0; transition: border-color .25s, box-shadow .25s; }
+  .zoom img { display: block; width: 100%; height: auto; transition: transform .45s ease; }
+  .zoom:hover, .zoom:focus-visible { border-color: var(--gold); box-shadow: 0 10px 30px rgba(0, 0, 0, .35); }
+  .zoom:hover img { transform: scale(1.04); }
+  .zoom:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .zoom-hint { position: absolute; top: 10px; inset-inline-end: 10px; display: inline-flex; align-items: center; gap: 6px; line-height: 1; padding: 7px 11px; border-radius: 6px; background: color-mix(in srgb, var(--bg) 88%, transparent); color: var(--text); border: 1px solid var(--line-2); font-size: 12.5px; font-weight: 500; opacity: 0; transform: translateY(-6px); transition: opacity .25s, transform .25s; pointer-events: none; }
+  .zoom-hint svg { width: 14px; height: 14px; }
+  .zoom:hover .zoom-hint, .zoom:focus-visible .zoom-hint { opacity: 1; transform: none; }
+  @media (hover: none) { .zoom-hint { opacity: 1; transform: none; } }
+  dialog.lightbox { border: 0; padding: 0; margin: auto; background: transparent; max-width: 96vw; max-height: 96vh; overflow: visible; }
+  dialog.lightbox::backdrop { background: rgba(3, 8, 6, .88); backdrop-filter: blur(4px); }
+  .lb-inner { position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .lb-scroll { max-width: 94vw; max-height: 80vh; overflow: auto; direction: ltr; border-radius: 8px; background: #fff; box-shadow: 0 20px 70px rgba(0, 0, 0, .6); cursor: zoom-in; }
+  .lb-img { display: block; max-width: 94vw; max-height: 80vh; width: auto; height: auto; }
+  dialog.lightbox.actual .lb-scroll { cursor: zoom-out; }
+  dialog.lightbox.actual .lb-img { max-width: none; max-height: none; }
+  .lb-tip { font-size: 12.5px; color: rgba(239, 233, 220, .6); text-align: center; max-width: 94vw; }
+  .lb-cap { font-size: 14px; color: #EFE9DC; text-align: center; max-width: 94vw; }
+  .lb-close { position: absolute; top: 8px; inset-inline-end: 8px; width: 36px; height: 36px; padding: 0; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .35); background: rgba(6, 16, 12, .72); color: #fff; display: grid; place-items: center; cursor: pointer; transition: .2s; }
+  .lb-close:hover, .lb-close:focus-visible { border-color: var(--gold); color: var(--gold-2); }
+  .lb-close svg { width: 16px; height: 16px; }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (max-width: 980px) {
+    .links { display: none; }
+    .hero-grid, .about-grid, .featured, .project.wide { grid-template-columns: 1fr; }
+    .photo { order: -1; width: min(290px, 78%); }
+    .skills-grid, .stats { grid-template-columns: repeat(2, 1fr); }
+    .item { grid-template-columns: 1fr; gap: 6px; }
+  }
+  @media (max-width: 620px) {
+    .wrap { padding: 0 16px; }
+    section { padding: 70px 0; }
+    .hero { padding: 50px 0 40px; }
+    .skills-grid, .projects-grid, .edu-grid, .mods { grid-template-columns: 1fr; }
+    .featured, .cta { padding: 28px 20px; }
+    .stat b { font-size: 30px; }
+    .cf-1 { left: -10px; } .cf-2 { right: -10px; }
+    html[dir="rtl"] .cf-1 { right: -10px; } html[dir="rtl"] .cf-2 { left: -10px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .dot, .caret { animation: none; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<div class="bg-fx"></div>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-in">
+      <a href="#top" class="logo">&lt;huda<b>/</b>&gt;</a>
+      <div class="links">
+        <a href="#about"><span class="en">About</span><span class="ar">نبذة</span></a>
+        <a href="#skills"><span class="en">Skills</span><span class="ar">المهارات</span></a>
+        <a href="#work"><span class="en">Work</span><span class="ar">المشاريع</span></a>
+        <a href="#experience"><span class="en">Experience</span><span class="ar">الخبرات</span></a>
+        <a href="#contact"><span class="en">Contact</span><span class="ar">تواصل</span></a>
+      </div>
+      <button class="lang" id="langBtn" aria-label="Switch language"><span class="en">العربية</span><span class="ar">English</span></button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="reveal">
+        <span class="status"><span class="dot"></span><span class="en">Open to new opportunities</span><span class="ar">متاحة لفرص عمل جديدة</span></span>
+        <h1>
+          <span class="en">Hi, I'm <span class="hl">Huda</span><br>Full Stack Developer</span>
+          <span class="ar">أهلاً، أنا <span class="hl">هدى</span><br>مطوّرة <bdi style="white-space:nowrap">Full Stack</bdi></span>
+        </h1>
+        <div class="role">&gt; building <b>web_apps</b> &amp;&amp; <b>erp_systems</b><span class="caret"></span></div>
+        <p class="sub">
+          <span class="en">Full Stack Developer building ERP systems and business web platforms. I pair Odoo backends with Angular frontends and build modern web apps with Next.js and React, from database design to a polished Arabic RTL interface.</span>
+          <span class="ar">مطوّرة Full Stack أبني أنظمة ERP ومنصات ويب للأعمال. أربط Odoo كـ backend بواجهات Angular، وأطوّر تطبيقات ويب حديثة بـ Next.js وReact، من تصميم قاعدة البيانات حتى واجهة عربية RTL متقنة.</span>
+        </p>
+        <div class="actions">
+          <a class="btn btn-main" href="#work"><span class="en">View my work</span><span class="ar">شاهد أعمالي</span></a>
+          <a class="btn btn-ghost" href="assets/Huda-Abu-Alkherr-CV.pdf" download><span class="en">Download CV</span><span class="ar">تحميل السيرة الذاتية</span></a>
+        </div>
+      </div>
+      <div class="photo reveal">
+        <div class="vis vis-mono" aria-hidden="true">
+          <div class="mono-letters">HA</div>
+          <div class="mono-rule"></div>
+          <div class="mono-name">Huda Abu Alkherr</div>
+          <div class="mono-role">Full Stack Developer</div>
+        </div>
+        <div class="chip-float cf-1"><i>&lt;/&gt;</i>Full Stack Developer</div>
+        <div class="chip-float cf-2"><i>18+</i><span class="en">ERP modules</span><span class="ar">وحدة ERP</span></div>
+      </div>
+    </div>
+    <div class="stats reveal">
+      <div class="stat card"><b>2.5<sup>+</sup></b><span class="en">Years of experience</span><span class="ar">سنوات خبرة</span></div>
+      <div class="stat card"><b>18<sup>+</sup></b><span class="en">ERP modules built</span><span class="ar">وحدة ERP</span></div>
+      <div class="stat card"><b>12</b><span class="en">Major projects</span><span class="ar">مشاريع رئيسية</span></div>
+      <div class="stat card"><b>2</b><span class="en">Odoo ERP systems</span><span class="ar">نظاما Odoo ERP</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="reveal">
+        <span class="tag"><span class="en">about me</span><span class="ar">نبذة عني</span></span>
+        <h2><span class="en">Code shaped by how <em>organizations</em> really work</span><span class="ar">برمجة تنطلق من فهم حقيقي <em>لعمل المؤسسات</em></span></h2>
+        <div class="about-text">
+          <p>
+            <span class="en">I'm a Full Stack Developer with 2.5+ years of experience in web applications and ERP systems. My work centers on Odoo-integrated platforms with Angular interfaces, such as a logistics ERP and a construction-project lifecycle system, and on modern products built with Next.js, TypeScript and Convex, like Jobly, a B2B job marketplace. Many of them ship with full Arabic RTL interfaces.</span>
+            <span class="ar">مطوّرة Full Stack بخبرة سنتين ونصف في تطبيقات الويب وأنظمة ERP. يتمحور عملي حول منصات متكاملة مع Odoo بواجهات Angular، مثل نظام ERP للشحن ونظام لإدارة دورة حياة مشاريع المقاولات، وحول منتجات حديثة بـ Next.js وTypeScript وConvex مثل Jobly، منصة توظيف B2B. وكثير منها بواجهات عربية RTL كاملة.</span>
+          </p>
+          <p>
+            <span class="en">I care about clean, maintainable code and interfaces people enjoy using. My experience in humanitarian case management deepened how I analyze systems and how I work with a team.</span>
+            <span class="ar">أهتم بالكود النظيف القابل للصيانة وبواجهات يستمتع المستخدم باستخدامها. خبرتي في إدارة الحالات بالعمل الإنساني عمّقت تحليلي للأنظمة وطريقة عملي مع الفريق.</span>
+          </p>
+        </div>
+        <div class="orgs"><span>UNICEF</span><span>Save the Children</span><span>Relief International</span></div>
+      </div>
+      <div class="terminal card reveal">
+        <div class="term-bar"><i></i><i></i><i></i></div>
+<pre><span class="k">const</span> huda = {
+  role: <span class="s">"Full Stack Developer"</span>,
+  focus: [<span class="s">"ERP"</span>, <span class="s">"Odoo"</span>, <span class="s">"Web Apps"</span>],
+  frontend: [<span class="s">"Angular"</span>, <span class="s">"React"</span>, <span class="s">"Next.js"</span>, <span class="s">"Tailwind"</span>],
+  backend: [<span class="s">"Python"</span>, <span class="s">"PHP"</span>, <span class="s">"Laravel"</span>],
+  databases: [<span class="s">"PostgreSQL"</span>, <span class="s">"MySQL"</span>],
+  languages: [<span class="s">"Arabic"</span>, <span class="s">"English"</span>],
+  location: <span class="s">"Damascus, Syria"</span>,
+};
+<span class="c">// building systems that run real businesses</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="tag"><span class="en">tech stack</span><span class="ar">التقنيات</span></span>
+      <h2><span class="en">Across the <em>full stack</em></span><span class="ar">على امتداد الـ <em>Full Stack</em></span></h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill card reveal"><div class="ico">&lt;/&gt;</div><h3>Frontend</h3><div class="pills"><span>Angular</span><span>React</span><span>Next.js</span><span>TypeScript</span><span>JavaScript</span><span>Tailwind CSS</span><span>HTML</span><span>CSS</span></div></div>
+      <div class="skill card reveal"><div class="ico">{ }</div><h3>Backend</h3><div class="pills"><span>Python</span><span>PHP</span><span>Laravel</span><span>REST APIs</span></div></div>
+      <div class="skill card reveal"><div class="ico">db</div><h3><span class="en">Databases</span><span class="ar">قواعد البيانات</span></h3><div class="pills"><span>PostgreSQL</span><span>MySQL</span></div></div>
+      <div class="skill card reveal"><div class="ico">erp</div><h3>Odoo ERP</h3><div class="pills"><span class="en">Custom modules</span><span class="ar">وحدات مخصّصة</span><span class="en">Headless APIs</span><span class="ar">Headless APIs</span><span class="en">Angular frontends</span><span class="ar">واجهات Angular</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="tag"><span class="en">featured project</span><span class="ar">المشروع الأبرز</span></span>
+      <h2><span class="en">Logistics &amp; Customs <em>ERP Platform</em></span><span class="ar">منصة <em>ERP</em> للشحن والتخليص الجمركي</span></h2>
+    </div>
+    <div class="featured card reveal">
+      <div class="top"><span class="badge">ERP</span><span class="num">/01</span></div>
+      <div>
+        <figure class="zoomfig">
+          <button type="button" class="zoom" aria-label="Enlarge image"><img src="assets/erp-dashboard.webp" width="2000" height="927" alt="ERP main dashboard with 18 module cards, Arabic RTL interface"><span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg><span class="en">Enlarge</span><span class="ar">تكبير</span></span></button>
+          <figcaption><span class="en">Module launcher — Arabic RTL interface</span><span class="ar">شاشة الوحدات — واجهة عربية RTL</span></figcaption>
+        </figure>
+        <div class="mods">
+          <div><b><span class="en">Operations</span><span class="ar">العمليات</span></b><span class="en">Shipments, customs, fleet, trips</span><span class="ar">الشحنات، التخليص، الأسطول، الرحلات</span></div>
+          <div><b><span class="en">Commercial</span><span class="ar">التجارة</span></b><span class="en">CRM, contracts, client portal</span><span class="ar">العملاء، العقود، بوابة العميل</span></div>
+          <div><b><span class="en">Administration</span><span class="ar">الإدارة</span></b><span class="en">Finance, HR, warehouses</span><span class="ar">المالية، الموارد البشرية، المستودعات</span></div>
+          <div><b><span class="en">Governance</span><span class="ar">الحوكمة</span></b><span class="en">Permissions, ISO 9001, BI</span><span class="ar">الصلاحيات، ISO 9001، التقارير</span></div>
+        </div>
+      </div>
+      <div>
+        <h3><span class="en">One system to run the whole company</span><span class="ar">نظام واحد لإدارة الشركة بالكامل</span></h3>
+        <p><span class="en">A logistics company was running shipments, customs clearance, warehouses, fleet and clients across disconnected tools. I built one unified system with 18+ integrated modules.</span><span class="ar">كانت شركة لوجستيات تدير الشحنات والتخليص الجمركي والمستودعات والأسطول والعملاء عبر أدوات متفرقة، فبنيت نظاماً موحّداً من أكثر من 18 وحدة متكاملة.</span></p>
+        <ul class="role-list">
+          <li><span class="en">Sole developer, end to end — frontend, backend, APIs and database</span><span class="ar">المطوّرة الوحيدة من البداية للنهاية: الواجهة والخلفية والـ APIs وقاعدة البيانات</span></li>
+          <li><span class="en">Complete Angular frontend, responsive and fully RTL</span><span class="ar">واجهة Angular كاملة، متجاوبة وداعمة للعربية بالكامل</span></li>
+          <li><span class="en">Custom Odoo modules in Python for every business area</span><span class="ar">وحدات Odoo مخصّصة بلغة Python لكل أقسام العمل</span></li>
+          <li><span class="en">REST API layer connecting Angular to Odoo (headless)</span><span class="ar">طبقة REST API تربط Angular مع Odoo (Headless)</span></li>
+          <li><span class="en">Roles and permissions, plus a dedicated client portal</span><span class="ar">نظام أدوار وصلاحيات، وبوابة خاصة للعملاء</span></li>
+        </ul>
+        <div class="stackline"><span>Angular</span><span>Odoo</span><span>Python</span><span>PostgreSQL</span><span>REST</span><span>RTL</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" style="padding-top:20px">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="tag"><span class="en">more work</span><span class="ar">أعمال أخرى</span></span>
+      <h2><span class="en">Selected <em>projects</em></span><span class="ar">مشاريع <em>مختارة</em></span></h2>
+    </div>
+    <div class="projects-grid">
+      <article class="project wide card reveal">
+        <div class="top"><span class="badge">Odoo ERP</span><span class="num">/02</span></div>
+        <div>
+          <figure class="zoomfig">
+            <button type="button" class="zoom" aria-label="Enlarge image"><img src="assets/contracting-concept.png" width="3300" height="2076" loading="lazy" alt="Interface concept for the contracting project management system, Arabic RTL, with sample data"><span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg><span class="en">Enlarge</span><span class="ar">تكبير</span></span></button>
+            <figcaption><span class="en">Interface concept — sample data</span><span class="ar">تصوّر للواجهة — بيانات تجريبية</span></figcaption>
+          </figure>
+          <h3><span class="en">Real Estate Company ERP</span><span class="ar">نظام ERP متكامل لشركة عقارات</span></h3>
+          <p><span class="en">An integrated system for managing the full lifecycle of contracting and construction projects, from start to finish. The interface is built with Angular 22 and Tailwind CSS, on top of Odoo ERP as the backend.</span><span class="ar">نظام متكامل لإدارة دورة حياة مشاريع المقاولات والإنشاء من الألف إلى الياء. الواجهة مبنية بـ Angular 22 وTailwind CSS، ومدمجة مع منصة Odoo ERP كـ backend.</span></p>
+          <div class="stackline"><span>Angular</span><span>Tailwind CSS</span><span>Odoo</span><span>Python</span><span>PostgreSQL</span></div>
+        </div>
+        <ul class="feats">
+          <li><span class="en">Full lifecycle, from project definition to closure</span><span class="ar">دورة حياة كاملة، من تعريف المشروع حتى إغلاقه</span></li>
+          <li><span class="en">Feasibility study, contracting and site analysis</span><span class="ar">دراسة الجدوى والتعاقد وتحليل الموقع</span></li>
+          <li><span class="en">Property licensing and execution</span><span class="ar">ترخيص العقار والتنفيذ</span></li>
+          <li><span class="en">Interactive map to locate the project</span><span class="ar">خريطة تفاعلية لتحديد موقع المشروع</span></li>
+          <li><span class="en">Dynamic management of properties and contracts</span><span class="ar">إدارة ديناميكية للعقارات والعقود</span></li>
+          <li><span class="en">Full Arabic RTL interface</span><span class="ar">واجهة عربية RTL كاملة</span></li>
+        </ul>
+      </article>
+      <article class="project wide card reveal">
+        <div class="top"><span class="badge">B2B Platform</span><span class="num">/03</span></div>
+        <div>
+          <h3><span class="en">Jobly — Job Marketplace</span><span class="ar">Jobly — منصة توظيف</span></h3>
+          <p><span class="en">A two-sided job marketplace. Companies onboard as organizations with their own profile (B2B), publish job listings and manage applicants through a hiring pipeline; job seekers search listings with filters, upload their resume and apply. The interface is fully in Arabic (RTL).</span><span class="ar">منصة توظيف ثنائية الجانب. تنضم الشركات كمؤسسات بملف تعريفي خاص (B2B)، وتنشر وظائفها وتدير المتقدمين عبر مسار توظيف، بينما يبحث الباحثون عن عمل بفلاتر ويرفعون سيرهم الذاتية ويقدّمون. والواجهة عربية بالكامل (RTL).</span></p>
+          <div class="stackline"><span>Next.js</span><span>TypeScript</span><span>Convex</span><span>Clerk</span><span>Tailwind</span></div>
+          <a class="live" href="https://github.com/HudaMohamad/jobly-app" target="_blank" rel="noopener"><span class="en">GitHub repository ↗</span><span class="ar">المستودع على GitHub ↗</span></a>
+        </div>
+        <ul class="feats">
+          <li><span class="en">Company accounts with organization profiles</span><span class="ar">حسابات للشركات بملف تعريفي للمؤسسة</span></li>
+          <li><span class="en">Listings with draft, published, closed and archived states</span><span class="ar">إعلانات بحالات: مسودة، منشور، مغلق، مؤرشف</span></li>
+          <li><span class="en">Search with work mode, employment type and category filters</span><span class="ar">بحث بفلاتر نمط العمل ونوع الدوام والتصنيف</span></li>
+          <li><span class="en">Salary range, tags and featured listings</span><span class="ar">نطاق الراتب والوسوم والإعلانات المميزة</span></li>
+          <li><span class="en">Applications with resume upload and cover letter</span><span class="ar">تقديم بسيرة ذاتية مرفوعة ورسالة تغطية</span></li>
+          <li><span class="en">Hiring pipeline: submitted, reviewing, shortlisted, hired</span><span class="ar">مسار التوظيف: مقدَّم، قيد المراجعة، قائمة مختصرة، تم التوظيف</span></li>
+        </ul>
+      </article>
+      <article class="project card reveal">
+        <div class="top"><span class="num">/04</span></div>
+        <h3><span class="en">Clinic Booking System</span><span class="ar">نظام حجز مواعيد للعيادات</span></h3>
+        <p><span class="en">Appointment management for clinics: doctor schedules, conflict-free booking, patient-facing booking and a clinic dashboard.</span><span class="ar">إدارة مواعيد العيادات: جداول الأطباء، حجز بدون تعارض، واجهة حجز للمرضى ولوحة تحكم للعيادة.</span></p>
+        <div class="stackline"><span>Next.js</span><span>Laravel</span><span>MySQL</span></div>
+      </article>
+      <article class="project card reveal">
+        <div class="top"><span class="num">/05</span></div>
+        <h3><span class="en">Architecture Firm Website</span><span class="ar">موقع شركة هندسة معمارية</span></h3>
+        <p><span class="en">A multi-page architecture firm website built with Next.js and React: statically generated project and info pages, React carousels and side menu, and a static export deployed to GitHub Pages with GitHub Actions.</span><span class="ar">موقع متعدد الصفحات لشركة هندسة معمارية، مبني بـ Next.js وReact: صفحات مشاريع ومعلومات مولّدة بشكل ثابت، وسلايدرات وقائمة جانبية بـ React، ونشر ثابت على GitHub Pages عبر GitHub Actions.</span></p>
+        <div class="stackline"><span>Next.js</span><span>React</span><span>Bootstrap</span></div>
+        <details class="proj-menu">
+          <summary><span class="en">View project</span><span class="ar">استعراض المشروع</span><i aria-hidden="true">▾</i></summary>
+          <div class="menu">
+            <a href="https://hudamohamad.github.io/Architecture" target="_blank" rel="noopener"><b>↗</b><span><span class="en">Live demo</span><span class="ar">العرض المباشر</span><small><span class="en">Open the working site</span><span class="ar">افتح الموقع شغّال</span></small></span></a>
+            <a href="https://github.com/HudaMohamad/Architecture" target="_blank" rel="noopener"><b>&lt;/&gt;</b><span><span class="en">GitHub repository</span><span class="ar">المستودع على GitHub</span><small><span class="en">Browse the source code</span><span class="ar">تصفّح الكود المصدري</span></small></span></a>
+          </div>
+        </details>
+      </article>
+      <article class="project card reveal">
+        <div class="top"><span class="num">/06</span></div>
+        <h3><span class="en">Ain Al-Hadath — News Website</span><span class="ar">عين الحدث — موقع إخباري</span></h3>
+        <p><span class="en">An Arabic RTL news platform with 12 sections, live search, a breaking-news ticker and an RSS news importer, plus an admin dashboard with secure login, a rich-text editor and visit analytics.</span><span class="ar">منصة أخبار عربية بـ 12 قسماً، بحث مباشر، شريط أخبار عاجلة، واستيراد تلقائي للأخبار عبر RSS، مع لوحة تحكم بتسجيل دخول آمن، محرر نصوص، وإحصائيات الزيارات.</span></p>
+        <div class="stackline"><span>Angular 16</span><span>PHP REST API</span><span>MySQL</span></div>
+        <details class="proj-menu">
+          <summary><span class="en">View project</span><span class="ar">استعراض المشروع</span><i aria-hidden="true">▾</i></summary>
+          <div class="menu">
+            <a href="https://hudamohamad.github.io/news_eye/" target="_blank" rel="noopener"><b>↗</b><span><span class="en">Live demo</span><span class="ar">العرض المباشر</span><small><span class="en">Open the working site</span><span class="ar">افتح الموقع شغّال</span></small></span></a>
+            <a href="https://github.com/HudaMohamad/news_eye" target="_blank" rel="noopener"><b>&lt;/&gt;</b><span><span class="en">GitHub repository</span><span class="ar">المستودع على GitHub</span><small><span class="en">Browse the source code</span><span class="ar">تصفّح الكود المصدري</span></small></span></a>
+          </div>
+        </details>
+      </article>
+      <article class="project card reveal">
+        <div class="top"><span class="num">/07</span></div>
+        <h3><span class="en">E-commerce Stores ×2</span><span class="ar">متجران إلكترونيان</span></h3>
+        <p><span class="en">Online electronics stores with categories from a REST API, product search, cart and wishlist, loading skeletons and a fully responsive layout.</span><span class="ar">متاجر إلكترونيات مع تصنيفات من REST API، بحث عن المنتجات، سلة ومفضلة، هياكل تحميل، وتصميم متجاوب بالكامل.</span></p>
+        <div class="stackline"><span>React</span><span>REST API</span></div>
+        <details class="proj-menu">
+          <summary><span class="en">View project</span><span class="ar">استعراض المشروع</span><i aria-hidden="true">▾</i></summary>
+          <div class="menu">
+            <a href="https://hudamohamad.github.io/e-commerce" target="_blank" rel="noopener"><b>↗</b><span><span class="en">Live demo</span><span class="ar">العرض المباشر</span><small><span class="en">Open the working site</span><span class="ar">افتح الموقع شغّال</span></small></span></a>
+            <a href="https://github.com/HudaMohamad/e-commerce" target="_blank" rel="noopener"><b>&lt;/&gt;</b><span><span class="en">GitHub repository</span><span class="ar">المستودع على GitHub</span><small><span class="en">Browse the source code</span><span class="ar">تصفّح الكود المصدري</span></small></span></a>
+          </div>
+        </details>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="tag"><span class="en">journey</span><span class="ar">المسيرة</span></span>
+      <h2><span class="en">Experience</span><span class="ar">الخبرات</span></h2>
+    </div>
+    <div class="timeline">
+      <div class="item current card reveal">
+        <div class="date"><span class="en">May 2025 — Present</span><span class="ar">أيار 2025 — حتى الآن</span></div>
+        <div>
+          <h3>Full Stack Developer</h3>
+          <div class="org"><span class="en">Real estate company</span><span class="ar">شركة عقارات</span></div>
+          <p><span class="en">Built an Odoo-based system for managing construction and contracting projects with an Angular interface, plus a real estate website and a news platform.</span><span class="ar">بناء نظام لإدارة مشاريع المقاولات والإنشاء على Odoo بواجهة Angular، إضافة إلى موقع عقاري ومنصة أخبار.</span></p>
+        </div>
+      </div>
+      <div class="item card reveal">
+        <div class="date"><span class="en">Apr 2024 — Apr 2026</span><span class="ar">نيسان 2024 — نيسان 2026</span></div>
+        <div>
+          <h3>Full Stack Developer</h3>
+          <div class="org"><span class="en">Freelance — Web &amp; ERP development</span><span class="ar">عمل حر — تطوير الويب وأنظمة ERP</span></div>
+          <p><span class="en">Sole developer of an 18+ module logistics and customs-clearance ERP with Angular and Odoo. Developed and maintained responsive web applications with Angular, React, PHP, Tailwind CSS, JavaScript and MySQL, including a clinic booking system and e-commerce stores; built user-friendly interfaces and back-end functionality, managed databases and improved performance.</span><span class="ar">المطوّرة الوحيدة لنظام ERP للشحن والتخليص الجمركي من أكثر من 18 وحدة بـ Angular وOdoo. وتطوير وصيانة تطبيقات ويب متجاوبة باستخدام Angular وReact وPHP وTailwind CSS وJavaScript وMySQL، منها نظام حجز للعيادات ومتاجر إلكترونية، مع واجهات سهلة الاستخدام ووظائف الـ backend وإدارة قواعد البيانات وتحسين الأداء.</span></p>
+        </div>
+      </div>
+      <div class="item card reveal">
+        <div class="date">2021 — 2023</div>
+        <div>
+          <h3><span class="en">Facilitator (Volunteer)</span><span class="ar">ميسّرة (متطوعة)</span></h3>
+          <div class="org"><span class="en">UNICEF — Za'atari Camp, Jordan</span><span class="ar">اليونيسف — مخيم الزعتري، الأردن</span></div>
+          <p><span class="en">Led education, child-protection and life-skills activities at the Makani center.</span><span class="ar">تيسير أنشطة التعليم وحماية الطفل والمهارات الحياتية في مركز مكاني.</span></p>
+        </div>
+      </div>
+      <div class="item card reveal">
+        <div class="date">2016 — 2018</div>
+        <div>
+          <h3><span class="en">Case Manager (Volunteer)</span><span class="ar">مديرة حالات (متطوعة)</span></h3>
+          <div class="org"><span class="en">Relief International — Za'atari Camp, Jordan</span><span class="ar">ريليف إنترناشونال — مخيم الزعتري، الأردن</span></div>
+          <p><span class="en">Managed protection cases for vulnerable individuals and families.</span><span class="ar">إدارة حالات الحماية للأفراد والعائلات الأكثر هشاشة.</span></p>
+        </div>
+      </div>
+      <div class="item card reveal">
+        <div class="date">2016</div>
+        <div>
+          <h3><span class="en">Child Protection Volunteer</span><span class="ar">متطوعة في حماية الطفل</span></h3>
+          <div class="org"><span class="en">Save the Children International — Jordan</span><span class="ar">منظمة إنقاذ الطفل الدولية — الأردن</span></div>
+          <p><span class="en">Worked with field teams to keep child-safe practices in place.</span><span class="ar">التعاون مع الفرق الميدانية لضمان تطبيق ممارسات آمنة للأطفال.</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" style="padding-top:20px">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="tag"><span class="en">education</span><span class="ar">التعليم</span></span>
+      <h2><span class="en">Education &amp; training</span><span class="ar">التعليم والتدريب</span></h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu card reveal">
+        <div class="date">2021 — 2024</div>
+        <h3><span class="en">B.Sc. Informatics Engineering &amp; Computer Science</span><span class="ar">بكالوريوس هندسة المعلوماتية وعلوم الحاسوب</span></h3>
+        <p><span class="en">American University of Madaba (AUM)</span><span class="ar">الجامعة الأمريكية في مادبا (AUM)</span></p>
+      </div>
+      <div class="edu card reveal">
+        <div class="date">2019 — 2021</div>
+        <h3><span class="en">English Language Diploma</span><span class="ar">دبلوم اللغة الإنجليزية</span></h3>
+        <p><span class="en">Elanus Academy</span><span class="ar">أكاديمية Elanus</span></p>
+      </div>
+      <div class="edu card reveal">
+        <div class="date">2023 — 2024</div>
+        <h3><span class="en">Human Resources</span><span class="ar">الموارد البشرية</span></h3>
+        <p><span class="en">Arab International Academy — the business side behind HR modules.</span><span class="ar">الأكاديمية العربية الدولية — الجانب العملي خلف وحدات الموارد البشرية.</span></p>
+      </div>
+      <div class="edu card reveal">
+        <div class="date">2016 — 2018</div>
+        <h3><span class="en">Humanitarian sector training</span><span class="ar">تدريب في القطاع الإنساني</span></h3>
+        <p>Protection &amp; Psychosocial Support — Save the Children, supported by UNICEF<br>Disability Inclusion — Handicap International<br>Training Course — Ministry for Foreign Affairs of Finland</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="cta card reveal">
+      <span class="tag"><span class="en">let's talk</span><span class="ar">لنتحدث</span></span>
+      <h2><span class="en">Let's build something <em>that lasts</em></span><span class="ar">لنبنِ معاً شيئاً <em>يدوم</em></span></h2>
+      <p class="sub"><span class="en">Open to Full Stack and Odoo developer roles — remote or on-site.</span><span class="ar">متاحة لوظائف Full Stack ومطوّرة Odoo — عن بُعد أو حضورياً.</span></p>
+      <a class="email" href="mailto:huda.abo.alkherr@gmail.com">huda.abo.alkherr@gmail.com</a>
+      <div class="socials">
+        <a href="https://github.com/HudaMohamad" target="_blank" rel="noopener">GitHub</a>
+        <a href="assets/Huda-Abu-Alkherr-CV.pdf" download><span class="en">Download CV</span><span class="ar">السيرة الذاتية</span></a>
+      </div>
+      <div class="loc"><span class="en">Damascus, Syria</span><span class="ar">دمشق، سوريا</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>© <span id="year">2026</span> Huda Abu Alkherr</footer>
+
+<dialog class="lightbox" id="lightbox" aria-label="Image preview">
+  <div class="lb-inner">
+    <div class="lb-scroll"><img class="lb-img" alt=""></div>
+    <div class="lb-cap"></div>
+    <div class="lb-tip"><span class="en">Click the image to switch between fit and full size</span><span class="ar">انقر على الصورة للتبديل بين الملاءمة والحجم الكامل</span></div>
+    <button type="button" class="lb-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+  </div>
+</dialog>
+
+<script>
+  const root = document.documentElement;
+  function setLang(lang) {
+    root.lang = lang;
+    root.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+  }
+  let saved = null;
+  try { saved = localStorage.getItem('lang'); } catch (e) {}
+  if (saved === 'ar' || saved === 'en') setLang(saved);
+  document.getElementById('langBtn').addEventListener('click', () => setLang(root.lang === 'ar' ? 'en' : 'ar'));
+
+  document.addEventListener('click', e => {
+    document.querySelectorAll('.proj-menu[open]').forEach(d => { if (!d.contains(e.target)) d.removeAttribute('open'); });
+  });
+  document.querySelectorAll('.proj-menu').forEach(d => d.addEventListener('toggle', () => {
+    if (d.open) document.querySelectorAll('.proj-menu[open]').forEach(o => { if (o !== d) o.removeAttribute('open'); });
+  }));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.proj-menu[open]').forEach(d => d.removeAttribute('open')); });
+
+  const lb = document.getElementById('lightbox');
+  const lbImg = lb.querySelector('.lb-img');
+  const lbScroll = lb.querySelector('.lb-scroll');
+  function setActual(on) {
+    if (on && !lbImg.naturalWidth) return;
+    lb.classList.toggle('actual', on);
+    lbImg.style.width = on ? (lbImg.naturalWidth / (window.devicePixelRatio || 1)) + 'px' : '';
+    if (on) { lbScroll.scrollLeft = 0; lbScroll.scrollTop = 0; }
+  }
+  lbScroll.addEventListener('click', () => setActual(!lb.classList.contains('actual')));
+  const lbCap = lb.querySelector('.lb-cap');
+  document.querySelectorAll('.zoomfig .zoom').forEach(btn => btn.addEventListener('click', () => {
+    const img = btn.querySelector('img');
+    const cap = btn.closest('figure').querySelector('figcaption');
+    lbImg.src = img.currentSrc || img.src;
+    lbImg.alt = img.alt;
+    lbCap.innerHTML = cap ? cap.innerHTML : '';
+    setActual(false);
+    lb.showModal();
+    document.body.style.overflow = 'hidden';
+  }));
+  function cleanupLightbox() { document.body.style.overflow = ''; setActual(false); lbImg.removeAttribute('src'); }
+  function closeLightbox() { if (lb.open) lb.close(); cleanupLightbox(); }
+  lb.addEventListener('click', e => { if (e.target === lb || e.target.closest('.lb-close')) closeLightbox(); });
+  lb.addEventListener('close', () => { if (!lb.open) cleanupLightbox(); });
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
